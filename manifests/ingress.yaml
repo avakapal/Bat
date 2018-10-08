@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+    ingress.kubernetes.io/secure-backends: "false"
+  name: hello-world-service-ingress-with-wc-tls-lb
+  namespace: bat-dev
+spec:
+  rules:
+  - host: hello-world-service.mil-dev-lbr-001.dev
+    http:
+      paths:
+      - backend:
+          serviceName: hello-world-service
+          servicePort: 8070
+        path: /
+  tls:
+  - hosts:
+    - hello-world-service.mil-dev-lbr-001.dev
+    secretName: wildcard-secret
