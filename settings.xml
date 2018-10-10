@@ -25,4 +25,15 @@
         <url>https://na.artifactory.swg-devops.com:443/artifactory/gbs-bat-eutpd-maven-local</url>
     </snapshotRepository>
 </distributionManagement>
+   <profiles>
+       <profile>
+            <id>sonar</id>
+        <activation>
+            <activeByDefault>true</activeByDefault>
+        </activation>
+        <properties>
+            <sonar.host.url>http://159.122.149.247:9000/sonar/</sonar.host.url>
+         </properties>
+       </profile>   
+    </profiles>
 </settings>
