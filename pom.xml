@@ -10,7 +10,16 @@
 
 	<name>hello-world-service</name>
 	<description>hello-world-service</description>
-
+	
+	
+	<groupId>sonar</groupId>
+	<artifactId>com.sonar.maven</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	
+	<name>com.sonar.maven</name>
+	<url>http://maven.apache.org</url>
+	
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
