@@ -10,8 +10,7 @@
 
 	<name>hello-world-service</name>
 	<description>hello-world-service</description>
-	
-	
+
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
@@ -48,14 +47,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!--<dependency>
-                        <groupId>sonar</groupId>
-			<artifactId>com.sonar.maven</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<packaging>jar</packaging>
-			<name>com.sonar.maven</name>
-	                <url>http://maven.apache.org</url>
-		</dependency>-->
 	</dependencies>
 	
 	<build>
@@ -64,13 +55,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			
-			<plugin>
-			<groupId>org.sonarsource.sonar-packaging-maven-plugin</groupId>
-			<artifactId>sonar-packaging-maven-plugin</artifactId>
-			<version>1.18.0.372</version>
-			<extensions>true</extensions>
-		      </plugin>
 		</plugins>
 	</build>
 
