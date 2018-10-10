@@ -25,6 +25,11 @@
         <url>https://na.artifactory.swg-devops.com:443/artifactory/gbs-bat-eutpd-maven-local</url>
     </snapshotRepository>
 </distributionManagement>
+    
+<pluginGroups>
+    <pluginGroup>org.sonarsource.scanner.maven<pluginGroups>
+</pluginGroups>
+    
    <profiles>
        <profile>
             <id>sonar</id>
