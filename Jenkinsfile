@@ -7,7 +7,7 @@ pipeline {
         withMaven(
          maven: 'Maven'
         ) {
-          sh 'mvn clean install'
+          sh 'mvn -s settings.xml clean install'
         }
       }
     }
