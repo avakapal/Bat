@@ -13,12 +13,13 @@ pipeline {
         git(url: 'https://github.com/batibm/Bat.git', branch: 'master', changelog: true)
       }
     }
+   def server = Artifactory.server "JFROG"
+   def rtMaven = Artifactory.newMavenBuild()
+   rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
+   rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
+    
     stage('Artifactory configuration') {
-        def server = Artifactory.server "JFROG"
-        def rtMaven = Artifactory.newMavenBuild()
-        rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
-        rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
-        steps {
+      steps {
         rtMaven.tool = " Maven 3.5.4"
       }
     }
