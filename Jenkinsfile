@@ -14,23 +14,23 @@ pipeline {
       }
     }
     stage('Artifactory configuration') {
-      steps {
         def server = Artifactory.server "JFROG"
         def rtMaven = Artifactory.newMavenBuild()
         rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
         rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
+        steps {
         rtMaven.tool = " Maven 3.5.4"
       }
     }
     stage('Maven build'){
+      def buildInfo
        steps {
-          def buildInfo
           buildInfo = rtMaven.run pom: '/var/lib/jenkins/workspace/Docker-Pipeline/pom.xml',goals: 'clean install -Dmaven.repo.local=.m2', buildInfo: 'existingBuildInfo'
       }
     }
     stage('Building image') {
+      def app
       steps {
-          def app
           app = docker.build("/var/lib/jenkins/workspace/Docker-Pipeline/target/Docker-Pipeline-0.0.1-SNAPSHOT.jar ")      
           input(message: 'build-img', id: 'building-img')
       }
