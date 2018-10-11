@@ -17,12 +17,16 @@ pipeline {
         }
       }
     }
-   post { 
+  }
+  post { 
     always { logstashSend failBuild:true }
     }  
-   }
-  }
 }
+
+   
+   
+  
+
 
        
    
