@@ -5,8 +5,7 @@ pipeline {
     stage('Maven build'){
       steps {
         withMaven(
-         maven: 'Maven',
-         mavenSettingsConfig: 'DockerDeployMaven'
+         maven: 'Maven'
         ) {
           sh 'mvn clean install'
         }
