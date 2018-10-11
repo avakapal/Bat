@@ -17,6 +17,9 @@ pipeline {
       }
     }
   }
+  post { 
+    always { logstashSend failBuild:true }
+  }
 }
 
        
