@@ -10,11 +10,24 @@ pipeline {
     stage('Maven build'){
       steps {
         withMaven(
-         maven: 'Maven'
+         maven: 'Maven 3.5.4 '
         ) {
-          sh 'mvn -s settings.xml clean install'
+           sh 'mvn clean compile'
         }
       }
     }
+    stage ('Testing Stage') {
+      steps {
+         withMaven(maven : 'Maven 3.5.4') {
+                    sh 'mvn test'
+                }
+            }
+        }
+    stage ('Deployment Stage') {
+      steps {
+                withMaven(maven : 'maven 3.5.4') {
+                    sh 'mvn deploy'
+                }
+            }
   }
 }
