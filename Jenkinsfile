@@ -1,12 +1,12 @@
 
 pipeline {
-  agent { any }
-    def server = Artifactory.server "JFROG"
-    def rtMaven = Artifactory.newMavenBuild()
-    rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
-    rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
-    def buildInfo
-    def app
+  agent any 
+   // def server = Artifactory.server "JFROG"
+    //def rtMaven = Artifactory.newMavenBuild()
+    //rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
+    //rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
+    //def buildInfo
+    //def app
   stages {
     stage('Cloning sources') {
       steps {
@@ -15,16 +15,22 @@ pipeline {
     }
     stage('Artifactory configuration') {
       steps {
+        def server = Artifactory.server "JFROG"
+        def rtMaven = Artifactory.newMavenBuild()
+        rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
+        rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
         rtMaven.tool = " Maven 3.5.4"
       }
     }
     stage('Maven build'){
        steps {
+          def buildInfo
           buildInfo = rtMaven.run pom: '/var/lib/jenkins/workspace/Docker-Pipeline/pom.xml',goals: 'clean install -Dmaven.repo.local=.m2', buildInfo: 'existingBuildInfo'
       }
     }
     stage('Building image') {
       steps {
+          def app
           app = docker.build("/var/lib/jenkins/workspace/Docker-Pipeline/target/Docker-Pipeline-0.0.1-SNAPSHOT.jar ")      
           input(message: 'build-img', id: 'building-img')
       }
