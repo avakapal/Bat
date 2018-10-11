@@ -1,7 +1,7 @@
 
 pipeline {
   agent any
-    def server = Artifactory.server ('JFROG')
+    def server = Artifactory.server "JFROG"
     def rtMaven = Artifactory.newMavenBuild()
     rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
     rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
