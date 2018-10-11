@@ -10,12 +10,16 @@ pipeline {
      stage('Maven build'){
       steps {
         withMaven(
-         maven: 'Maven '
+         maven: 'Maven'
         ) {
              sh 'mvn clean deploy' 
         }
       }
     }
+   post { 
+    always { logstashSend failBuild:true }
+    }  
+   }
   }
 }
 
