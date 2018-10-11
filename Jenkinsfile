@@ -1,7 +1,10 @@
 
 pipeline {
   agent any
+    def server = Artifactory.server 'JFROG'
     def rtMaven = Artifactory.newMavenBuild()
+    rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
+    rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
     def buildInfo
     def app
   stages {
@@ -17,7 +20,7 @@ pipeline {
     }
     stage('Maven build'){
        steps {
-          buildInfo = rtMaven.run pom: '/root/Docker-Pipeline/Bat/Bat/pom.xml',goals: 'clean install'
+          buildInfo = rtMaven.run pom: '/var/lib/jenkins/workspace/Docker-Pipeline/pom.xml',goals: 'clean install -Dmaven.repo.local=.m2' buildInfo: existingBuildInfo
       }
     }
     stage('Building image') {
