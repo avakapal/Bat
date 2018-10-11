@@ -12,7 +12,8 @@ pipeline {
         withMaven(
          maven: 'Maven'
         ) {
-             sh 'mvn clean deploy' 
+             sh 'mvn clean install' 
+             //sh 'mvn clean deploy' 
         }
       }
     }
