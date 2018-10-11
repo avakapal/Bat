@@ -20,7 +20,7 @@ pipeline {
     }
     stage('Maven build'){
        steps {
-          buildInfo = rtMaven.run pom: '/var/lib/jenkins/workspace/Docker-Pipeline/pom.xml',goals: 'clean install -Dmaven.repo.local=.m2' buildInfo: existingBuildInfo
+          buildInfo = rtMaven.run pom: '/var/lib/jenkins/workspace/Docker-Pipeline/pom.xml',goals: 'clean install -Dmaven.repo.local=.m2', buildInfo: 'existingBuildInfo'
       }
     }
     stage('Building image') {
