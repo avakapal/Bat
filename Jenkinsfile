@@ -2,36 +2,27 @@
 pipeline {
   agent any
   stages {
-    stage('Cloning sources') {
+      stage('Cloning sources') {
       steps {
         git(url: 'https://github.com/batibm/Bat.git', branch: 'master', changelog: true)
       }
     }
-    stage('Maven build'){
+     stage('Maven build'){
       steps {
         withMaven(
-         maven: 'Maven 3.5.4 '
+         maven: 'Maven '
         ) {
-           sh 'mvn clean compile'
+             sh 'mvn clean deploy' 
         }
-      }
-    }
-    stage ('Testing Stage') {
-      steps {
-         withMaven(maven : 'Maven 3.5.4') {
-                    sh 'mvn test'
-                }
-            }
-        }
-    stage ('Deployment Stage') {
-      steps {
-                withMaven(maven : 'maven 3.5.4') {
-                    sh 'mvn deploy'
-                }
       }
     }
   }
-  
 }
+
+       
+   
+  
+  
+
 
                             
