@@ -12,15 +12,15 @@ pipeline {
         withMaven(
          maven: 'Maven'
         ) {
-             sh 'mvn clean install' 
-             //sh 'mvn clean deploy' 
+            // sh 'mvn clean install' 
+             sh 'mvn clean deploy' 
         }
       }
     }
   }
   post { 
-    always { logstashSend failBuild:true }
-    }  
+    always { logstashSend maxLines:-1 failBuild:true }
+  }
 }
 
    
