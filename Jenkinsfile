@@ -1,5 +1,5 @@
 
-peline {
+pipeline {
   agent any
   stages {
     stage('Cloning sources') {
@@ -25,7 +25,6 @@ peline {
     }
     stage('Push image') {
       steps {
-              
         input(message: 'doc-pipeline-image', id: 'pipeline')
         app.push("/var/pipeline-img/")
         app.push("${env.BUILD_NUMBER}")
