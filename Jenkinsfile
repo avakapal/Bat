@@ -3,6 +3,7 @@ pipeline {
   agent any
     def rtMaven = Artifactory.newMavenBuild()
     def buildInfo
+    def app
   stages {
     stage('Cloning sources') {
       steps {
