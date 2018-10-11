@@ -19,7 +19,7 @@ pipeline {
     }
     stage('Building image') {
       steps {
-          app = docker.build("/var/lib/jenkins/workspace/Docker-Pipeline/target/Docker-Pipeline-0.0.1-SNAPSHOT.jar "      
+          app = docker.build("/var/lib/jenkins/workspace/Docker-Pipeline/target/Docker-Pipeline-0.0.1-SNAPSHOT.jar ")      
           input(message: 'build-img', id: 'building-img')
       }
     }
