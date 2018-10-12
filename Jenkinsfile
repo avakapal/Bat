@@ -3,7 +3,9 @@ pipeline {
   agent any
   stages {
     stage('Build image') {
-    app = docker.build("/var/lib/jenkins/workspace/Pipeline-Image/target/hello-world-service-0.0.1-SNAPSHOT.jar")
+      steps {
+        echo 'Starting to build docker image'
+        app = docker.build("/var/lib/jenkins/workspace/Pipeline-Image/target/hello-world-service-0.0.1-SNAPSHOT.jar")
     }
   }
 }
@@ -15,8 +17,6 @@ pipeline {
         //) { 
           //sh 'mvn clean install' 
             
-             //stage('Build image') {
-         //app = docker.build("/var/lib/jenkins/workspace/Docker-Pipeline/target/hello-world-service-0.0.1-SNAPSHOT.jar")
       
 
   
