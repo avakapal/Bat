@@ -13,9 +13,7 @@ pipeline {
         stage('Push image') {
           steps {
               withDockerRegistry([ credentialsId: "docker-hub-credentials", url: "https://registry.hub.docker.com" ]) {
-              sh 'docker push <image>'         
-             app.push("${env.BUILD_ID}")
-             app.push("latest")
+              sh 'docker push Pipeline-Image'         
             }
         }
     }
