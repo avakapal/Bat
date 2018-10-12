@@ -2,14 +2,6 @@
 pipeline {
   agent any
   stages {
-      stage('Build image') {
-      steps {
-        echo 'Starting to build docker image'
-        script {
-           def  app = docker.build(" pipelineimage")
-        }
-      }
-    }
      stage('Push image') {
           steps {
               withDockerRegistry([ credentialsId: "docker-hub-credentials", url: "https://registry.hub.docker.com" ]) {
