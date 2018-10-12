@@ -7,7 +7,7 @@ pipeline {
         echo 'Starting to build docker image'
         def  app = docker.build(" Pipeline-Image")
         stage('Push image') {
-            docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+            docker.withRegistry('https://registry.hub.docker.com', 'username:batibm,password:Bat@ibm') {
            // app.push("${env.BUILD_NUMBER}")
             app.push()
       }
