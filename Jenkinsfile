@@ -5,7 +5,7 @@ pipeline {
      stage('Push image') {
           steps {
               withDockerRegistry([ credentialsId: "docker-hub-credentials", url: "https://registry.hub.docker.com" ]) {
-              sh 'docker push ${pipelineimage} '   
+              sh 'docker push pipelineimage '   
               }
           }
         }
