@@ -2,7 +2,7 @@
 pipeline {
   agent any
   stages {
-     stage('Build image') {
+      stage('Build image') {
       steps {
         echo 'Starting to build docker image'
         script {
@@ -10,11 +10,12 @@ pipeline {
         }
       }
     }
-        stage('Push image') {
+     stage('Push image') {
           steps {
               withDockerRegistry([ credentialsId: "docker-hub-credentials", url: "https://registry.hub.docker.com" ]) {
-              sh 'docker push Pipeline-Image'         
-            }
+              sh 'docker push Pipeline-Image'   
+              }
+          }
         }
     }
 }         
