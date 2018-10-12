@@ -96,6 +96,29 @@
 		</pluginRepository>
 	</pluginRepositories>
 <distributionManagement>
+    <plugin>
+    groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.2</version>
+                <configuration>
+                    <destFile>${sonar.jacoco.reportPath}</destFile>
+                    <append>true</append>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-site</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+	</plugin>
+	
     <repository>
         <id>central</id>
         <name>artifactory-dal10-01-node-07.swg-devops.com-releases</name>
