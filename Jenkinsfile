@@ -5,7 +5,8 @@ pipeline {
     stage('Build image') {
       steps {
         echo 'Starting to build docker image'
-        app = docker.build("/var/lib/jenkins/workspace/Pipeline-Image/target/hello-world-service-0.0.1-SNAPSHOT.jar")
+        def  app = docker.build("/var/lib/jenkins/workspace/Pipeline-Image/target/hello-world-service-0.0.1-SNAPSHOT.jar")
+        app.push()
     }
   }
 }
