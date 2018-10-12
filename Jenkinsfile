@@ -6,7 +6,7 @@ pipeline {
       steps {
         echo 'Starting to build docker image'
         script {
-           def  app = docker.build(" pipelineimage:${env.BUILD_ID}")
+           def  app = docker.build(" pipelineimage")
         }
       }
     }
