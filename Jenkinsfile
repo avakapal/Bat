@@ -1,8 +1,6 @@
 
 pipeline {
-  agent any
-      stages {
-        agent { 
+  agent { 
           docker {
               image 'pipelineimage'
               registryUrl 'https://localhost:5000'
@@ -10,6 +8,7 @@ pipeline {
               //args '-v /var/jenkins_home/.m2:/root/.m2'
           }
         }
+}
         
           
 
