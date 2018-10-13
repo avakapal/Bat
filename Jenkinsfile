@@ -1,17 +1,18 @@
 
 pipeline {
-  agent { 
-          docker {
-              image 'pipelineimage'
-              registryUrl 'https://localhost:5000'
-              registryCredentialsId 'local-registry'
-              //args '-v /var/jenkins_home/.m2:/root/.m2'
+  agent any
+  stage('push images){
+        steps{
+          docker.withRegistry('https://localhost:5000', 'local-registry') {
+            sh 'docker push pipelineimage'
           }
         }
-}
+       }
+      }
         
-          
 
+              
+ 
      
    
    
