@@ -1,35 +1,48 @@
-pipeline {
-       agent any
-       	    stages{
-        	      stage ('Artifactory configuration'){
-              	      steps{
-                 	        script{
+pipeline{
 
-                  	          def server = Artifactory.server "JFROG"  
+    agent any
 
-        	                  def Maven = Artifactory.newMavenBuild()
-       
-             	              Maven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
-                              Maven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
-                              Maven.tool = 'Maven'
+    stages{
 
-        	                   buildInfo = Artifactory.newBuildInfo()
-                            }
-                      }
-                  }
+       stage('Maven build'){ 
 
-      
-        	        stage('Exec Maven'){
-        	          steps{
-        	            script{
-              	        def buildInfo = Maven.run pom: ' /root/pipeline-jfrog/Bat/pom.xml', goals: 'clean install' , buildInfo: 'buildInfo'    
-                            Maven.deployer.deployArtifacts buildInfo
-                            server.publishBuildInfo buildInfo
-                        }
-                      }
-                    }
-            }
-}
+          steps { 
+
+            withMaven( 
+
+              maven: 'Maven' )
+
+             { 
+
+             sh 'mvn clean install' 
+
+             }
+
+          }
+
+        }
+
+   stage('Build image') {
+
+      steps {
+
+        echo 'Starting to build docker image'
+
+        script {
+
+           def  app = docker.build(" pipelineimage6")
+
+            dockerFingerprintFrom([Dockerfile: "."])
+
+        }
+
+      }
+
+   }
+
+                }
+
+                }
 
                       
 
