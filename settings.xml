@@ -25,4 +25,16 @@
         <url>https://na.artifactory.swg-devops.com:443/artifactory/gbs-bat-eutpd-maven-local</url>
     </snapshotRepository>
 </distributionManagement>
+     <profiles>
+        <profile>
+            <id>JFROG</id>
+            <properties>
+                <username>batibm</username>
+                <password>bat@123</password>
+            </properties>
+        </profile>
+    </profiles>
+    <activeProfiles>
+        <activeProfile>JFROG</activeProfile>
+    </activeProfiles>
 </settings>
