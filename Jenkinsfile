@@ -2,7 +2,7 @@
 pipeline {
   agent any
   stages{
-       stage(‘SonarQube Analysis’){
+       stage("SonarQube Analysis"){
          steps{
               def mvnHome=tool name: ‘Maven’
               withSonarQubeEnv(‘SonarQube’){
