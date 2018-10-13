@@ -2,16 +2,16 @@
 pipeline {
   agent any
       stages {
-        stage('Build image') {
-          steps {
-            echo 'Starting to build docker image'
-            script {
-            def  app = docker.build(" pipelineimage")
-            }
+        agent { 
+          docker {
+              image 'pipelineimage'
+              registryUrl 'https://localhost:5000'
+              registryCredentialsId 'local-registry'
+              //args '-v /var/jenkins_home/.m2:/root/.m2'
           }
         }
-      }
-}
+        
+          
 
      
    
