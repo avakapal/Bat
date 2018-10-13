@@ -13,7 +13,7 @@ pipeline {
       }
     }
     
-        stage(Exec Maven){
+        stage('Exec Maven'){
           steps{
         def buildInfo = rtMaven.run pom: ' /root/pipeline-jfrog/Bat/pom.xml', goals: 'clean install' , buildInfo: 'buildInfo'    
         rtMaven.deployer.deployArtifacts buildInfo
