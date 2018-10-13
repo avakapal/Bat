@@ -2,7 +2,7 @@
 pipeline {
   agent any
   stages{
-    stage{
+    stage ('Artifactory configuration'){
       steps{
        def server = Artifactory.server url:"http://159.122.149.247:8081/artifactory/"
       //def server = Artifactory.newServer url: SERVER_URL, credentialsId: CREDENTIALS
