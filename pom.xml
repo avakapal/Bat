@@ -132,6 +132,21 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
+		    <repository>
+        <id>JFORG</id>
+        <url>http:// 159.122.149.247:8081/artifactory/libs-release</url>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+    </repository>
+    <repository>
+        <id>snapshots</id>
+        <url>http:// 159.122.149.247:8081/artifactory/libs-snapshot</url>
+        <releases>
+            <enabled>false</enabled>
+        </releases>
+    </repository>
+
 	</repositories>
 
 	<pluginRepositories>
@@ -151,6 +166,13 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</pluginRepository>
+		<pluginRepository>
+			<id>JFROG</id>
+			<url>http:// 159.122.149.247:8081/artifactory/plugins-release</url>
+			<snapshots>
+			    <enabled>false</enabled>
+			</snapshots>
+	       </pluginRepositories>
 	</pluginRepositories>
 <distributionManagement>
     <repository>
