@@ -1,12 +1,14 @@
 
 pipeline {
   agent any
+  def server = Artifactory.server "JFROG"
+  def Maven = Artifactory.newMavenBuild()
     stages{
       stage ('Artifactory configuration'){
       steps{
         script{
-          def server = Artifactory.server "JFROG"
-            def Maven = Artifactory.newMavenBuild()
+          //def server = Artifactory.server "JFROG"
+            //def Maven = Artifactory.newMavenBuild()
           Maven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
           Maven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
           Maven.tool = 'Maven'
@@ -18,8 +20,8 @@ pipeline {
         stage('Exec Maven'){
           steps{
             script{
-        def buildInfo = rtMaven.run pom: ' /root/pipeline-jfrog/Bat/pom.xml', goals: 'clean install' , buildInfo: 'buildInfo'    
-        rtMaven.deployer.deployArtifacts buildInfo
+        def buildInfo = Maven.run pom: ' /root/pipeline-jfrog/Bat/pom.xml', goals: 'clean install' , buildInfo: 'buildInfo'    
+        Maven.deployer.deployArtifacts buildInfo
         server.publishBuildInfo buildInfo
             }
           }
