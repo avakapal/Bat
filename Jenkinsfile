@@ -1,14 +1,13 @@
 
 pipeline {
   agent any
-  def server = Artifactory.server "JFROG"
-  def Maven = Artifactory.newMavenBuild()
+ 
     stages{
       stage ('Artifactory configuration'){
       steps{
         script{
-          //def server = Artifactory.server "JFROG"
-            //def Maven = Artifactory.newMavenBuild()
+          def server = Artifactory.server "JFROG"
+          def Maven = Artifactory.newMavenBuild()
           Maven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
           Maven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
           Maven.tool = 'Maven'
