@@ -6,10 +6,10 @@ pipeline {
       steps{
         script{
           def server = Artifactory.server "JFROG"
-            def rtMaven = Artifactory.newMavenBuild()
-          rtMaven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
-          rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
-          rtMaven.tool = 'Maven'
+            def Maven = Artifactory.newMavenBuild()
+          Maven.resolver server: server, releaseRepo: 'libs-release', snapshotRepo: 'libs-snapshot'
+          Maven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
+          Maven.tool = 'Maven'
           buildInfo = Artifactory.newBuildInfo()
         }
       }
