@@ -15,7 +15,7 @@ pipeline{
         echo 'Starting to build docker image'
         script {
            def  app = docker.build(" pipelineimage6")
-            dockerFingerprintFrom([dockerfile: "."])
+            dockerFingerprintFrom([Dockerfile: "."])
 
         }
       }
