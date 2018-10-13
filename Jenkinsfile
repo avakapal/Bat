@@ -1,16 +1,18 @@
 
 pipeline {
-  agent { docker }
+  agent any
   stages{
        stage('push images'){
         steps{
-          docker.withRegistry('https://localhost:5000', 'local-registry') {
+          withDockerRegistry('https://localhost:5000', 'local-registry') {
             sh 'docker push pipelineimage'
           }
         }
        }
-      }
+  }
 }
+         
+        
 
         
 
