@@ -10,6 +10,9 @@ pipeline {
         rtMaven.deployer server: server, releaseRepo: 'libs-release-local', snapshotRepo: 'libs-snapshot-local'
         rtMaven.tool = 'Maven'
         buildInfo = Artifactory.newBuildInfo()
+      }
+    }
+    
         stage(Exec Maven){
           steps{
         def buildInfo = rtMaven.run pom: ' /root/pipeline-jfrog/Bat/pom.xml', goals: 'clean install' , buildInfo: 'buildInfo     
@@ -20,8 +23,7 @@ pipeline {
         
       }
     }
-  }
-}
+
   
 
          
