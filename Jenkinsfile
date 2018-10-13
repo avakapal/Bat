@@ -2,7 +2,8 @@
 pipeline {
   agent any
   stages{
-    steps{
+    stage{
+      steps{
        def server = Artifactory.server url:"http://159.122.149.247:8081/artifactory/"
       //def server = Artifactory.newServer url: SERVER_URL, credentialsId: CREDENTIALS
         def rtMaven = Artifactory.newMavenBuild()
@@ -14,10 +15,11 @@ pipeline {
         def buildInfo = rtMaven.run pom: ' /root/pipeline-jfrog/Bat/pom.xml', goals: 'clean install' , buildInfo: 'buildInfo'
         rtMaven.deployer.deployArtifacts buildInfo
         server.publishBuildInfo buildInfo
+      }
     }
   }
 }
-
+  
 
          
 
