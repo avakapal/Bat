@@ -15,10 +15,12 @@ pipeline {
         rtMaven.deployer.deployArtifacts buildInfo
         server.publishBuildInfo buildInfo
     }
-
-       }
   }
 }
+
+
+         
+
 
         
  
