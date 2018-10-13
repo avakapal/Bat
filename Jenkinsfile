@@ -4,16 +4,18 @@ pipeline {
   stages{
        stage('push images'){
         steps{
-          withDockerRegistry('https://localhost:5000', 'local-registry') {
+           withDockerServer([uri: "tcp://localhost:5000"]) {
+           withDockerRegistry([credentialsId: 'local-registry', url: "https://159.122.149.247:5000/"]){
             sh 'docker push pipelineimage'
-          }
+           }
+           }
         }
        }
   }
 }
-         
-        
 
+          
+   
         
 
               
