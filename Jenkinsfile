@@ -37,3 +37,4 @@ node{
 	post { 
            always { logstashSend maxLines:-1 , failBuild:true }
 	} 
+}
