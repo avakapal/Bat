@@ -17,7 +17,7 @@ node{
 
     stage('Docker Build') {
          
-         app = docker.build("batibm/final-img")		 
+         app = docker.build("batibm/final-img1")		 
 		 }
 		 
 	stage('Test image') {
