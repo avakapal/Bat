@@ -34,8 +34,9 @@ node{
 		  app.push("latest")
 		  }
 		}
-}
-	post { 
+
+	stage('post') { 
            always { logstashSend maxLines:-1 , failBuild:true }
 	} 
+}
 
