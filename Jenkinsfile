@@ -17,7 +17,7 @@ node{
 
     stage('Docker Build') {
          
-         app = docker.build("batibm/bat")		 
+         app = docker.build("final-img")		 
 		 }
 		 
 	stage('Test image') {
@@ -34,7 +34,8 @@ node{
 		  app.push("latest")
 		  }
 		}
+}
 	post { 
            always { logstashSend maxLines:-1 , failBuild:true }
 	} 
-}
+
