@@ -17,7 +17,7 @@ node{
 
     stage('Docker Build') {
          
-         app = docker.build("batibm/final-img2")		 
+         app = docker.build("doc/local")		 
 		 }
 		 
 	stage('Test image') {
@@ -29,7 +29,7 @@ node{
 		 
 	stage('Push image') {
 	  
-	  docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {       
+	  docker.withRegistry('http://localhost:5000', 'local-registry') {       
 	    app.push("${env.BUILD_NUMBER}")
 	  app.push("latest")
 		  }
