@@ -1,7 +1,7 @@
 node{
    stage('SCM Checkout'){
      git 'https://github.com/batibm/Bat.git'
-   }
+   
     stage('Compile-Package'){
         // Get maven home path
         def mvnHome = tool name: 'Maven', type: 'maven'
