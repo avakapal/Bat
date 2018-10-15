@@ -2,10 +2,16 @@ node{
    stage('SCM Checkout'){
      git 'https://github.com/batibm/Bat.git'
    }
-    stage('Compile-Package'){
+    stage('compile'){
         // Get maven home path
         def mvnHome = tool name: 'Maven', type: 'maven'
-        sh "${mvnHome}/bin/mvn package"
+        sh "${mvnHome}/bin/mvn compile"
+    }
+	
+	stage('test'){
+        // Get maven home path
+        def mvnHome = tool name: 'Maven', type: 'maven'
+        sh "${mvnHome}/bin/mvn clean test"
     }
 
     stage('SonarQube Analysis'){
@@ -14,29 +20,19 @@ node{
             sh "${mvnHome}/bin/mvn sonar:sonar"
          }
     }
-
-    stage('Docker Build') {
-         
-         app = docker.build("doc/local")		 
-		 }
-		 
-	stage('Test image') {
 	
-	    app.inside {
-		    sh 'echo "Tests passed"'
-		}
+	stage("SonarQube Quality Gate") { 
+        timeout(time: 1, unit: 'HOURS') { 
+           def qg = waitForQualityGate() 
+           if (qg.status != 'OK') {
+             error "Pipeline aborted due to quality gate failure: ${qg.status}"
+           }
+        }
+    }
+	
+	stage('package'){
+        // Get maven home path
+        def mvnHome = tool name: 'Maven', type: 'maven'
+        sh "${mvnHome}/bin/mvn clean package"
+    }
 	}
-		 
-	stage('Push image') {
-	  
-	  docker.withRegistry('http://localhost:5000', 'local-registry') {       
-	    app.push("${env.BUILD_NUMBER}")
-	  app.push("latest")
-		  }
-		}
-
-	stage('post') { 
-           always { logstashSend maxLines:-1 , failBuild:true }
-	} 
-}
-
