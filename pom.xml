@@ -5,7 +5,7 @@
 
 	<groupId>com.bat.tpd.primarydb</groupId>
 	<artifactId>hello-world-service</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>hello-world-service</name>
@@ -25,8 +25,36 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Finchley.SR1</spring-cloud.version>
-		<jacoco.version>0.7.7.201606060606</jacoco.version>
+		
+		<!-- Sonar properties start -->
+        <sonar.sources>src/main</sonar.sources>
+        <sonar.tests>src/test</sonar.tests>
+        <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+        <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+        <sonar.jacoco.reportPaths>${project.basedir}/target/jacoco.exec</sonar.jacoco.reportPaths>
+        <!-- Sonar properties end -->
+		
 	</properties>
+	
+	<profiles>
+        <profile>
+            <id>lclartifactory</id>
+            <repositories>
+                <repository>
+                    <id>code-repo</id>
+                    <name>id-artifactory-repo</name>
+                    <url>https://na.artifactory.swg-devops.com:443/artifactory/gbs-admi-admi1-maven-virtual</url>
+                </repository>
+            </repositories>
+            <distributionManagement>
+                <repository>
+                    <id>code-repo</id>
+                    <name>artifactory-dal10-01-node-04.swg-devops.com-releases</name>
+                    <url>https://na.artifactory.swg-devops.com:443/artifactory/gbs-admi-admi1-maven-virtual</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+    </profiles>
 
 	<dependencies>
 		<dependency>
@@ -50,70 +78,55 @@
 		</dependency>
 	</dependencies>
 	
+	<dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+	
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-					<!-- Sets the VM argument line used when unit tests are run. -->
-					<argLine>${surefireArgLine}</argLine>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>${jacoco.version}</version>
-				<executions>
-					<execution>
-						<id>default-instrument</id>
-						<goals>
-							<goal>instrument</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>pre-unit-test</id>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-						<configuration>
-							<!-- Sets the path to the file which contains the execution data. -->
-							<destFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</destFile>
-							<!-- Sets the name of the property containing the settings for JaCoCo 
-								runtime agent. -->
-							<propertyName>surefireArgLine</propertyName>
-							<excludes>
-								<exclude>*</exclude>
-							</excludes>
-						</configuration>
-					</execution>
-					<execution>
-						<id>default-restore-instrumented-classes</id>
-						<goals>
-							<goal>restore-instrumented-classes</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>default-report</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-						<configuration>
-							<!-- Sets the path to the file which contains the execution data. -->
-							<dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
-							<!-- Sets the output directory for the code coverage report. -->
-							<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.8.2</version>
+                <configuration>
+                    <destFile>${sonar.jacoco.reportPath}</destFile>
+                    <append>true</append>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-site</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 
 	<repositories>
 		<repository>
@@ -152,17 +165,4 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
-<distributionManagement>
-    <repository>
-        <id>central</id>
-        <name>artifactory-dal10-01-node-07.swg-devops.com-releases</name>
-        <url>https://na.artifactory.swg-devops.com:443/artifactory/gbs-bat-eutpd-maven-local</url>
-    </repository>
-    <snapshotRepository>
-        <id>snapshots</id>
-        <name>artifactory-dal10-01-node-07.swg-devops.com-snapshots</name>
-        <url>https://na.artifactory.swg-devops.com:443/artifactory/gbs-bat-eutpd-maven-local</url>
-    </snapshotRepository>
-</distributionManagement>
-
 </project>
