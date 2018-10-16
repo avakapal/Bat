@@ -25,28 +25,8 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Finchley.SR1</spring-cloud.version>
+		<sonar.jacoco.reportPath>target/jacoco.exec</sonar.jacoco.reportPath>
 	</properties>
-	
-	<profiles>
-        <profile>
-            <id>lclartifactory</id>
-            <repositories>
-                <repository>
-                    <id>code-repo</id>
-                    <name>id-artifactory-repo</name>
-                    <url>https://na.artifactory.swg-devops.com:443/artifactory/gbs-admi-admi1-maven-virtual</url>
-                </repository>
-            </repositories>
-            <distributionManagement>
-                <repository>
-                    <id>code-repo</id>
-                    <name>artifactory-dal10-01-node-04.swg-devops.com-releases</name>
-                    <url>https://na.artifactory.swg-devops.com:443/artifactory/gbs-admi-admi1-maven-virtual</url>
-                </repository>
-            </distributionManagement>
-        </profile>
-    </profiles>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
