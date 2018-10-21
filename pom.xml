@@ -107,7 +107,7 @@
                     </goals>
 			 <configuration>
                             <publisher>
-                            <contextUrl>159.122.171.152:8081/artifactory/</contextUrl>
+                            <contextUrl>http://159.122.171.152:8081/artifactory</contextUrl>
                             <username>admin</username>
                             <password>NewPassword</password>
                             <repoKey>libs-release-local</repoKey>
