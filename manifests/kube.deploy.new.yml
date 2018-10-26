@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: "hello-world-service-deployment"
+spec:
+  # this replicas value is default
+  # modify it according to your case
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: "hello-world-service-selector"
+    spec:      
+      #imagePullSecrets:
+        #- name: regcred
+      containers:
+        - name: hello-world-service
+          image: registry.hub.docker.com/batibm/projectimage:latest
+          readinessProbe:
+            httpGet:
+             path: /greeting
+             port: 8070
+            initialDelaySeconds: 70
+        # resources:
+        #   requests:
+        #     cpu: 100m
+#     memory: 100Mi
