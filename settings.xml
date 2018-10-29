@@ -11,7 +11,7 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <sonar.host.url>http://159.122.149.247:9000/sonar</sonar.host.url>
+                <sonar.host.url>http://159.122.171.152:9000/sonar</sonar.host.url>
                 <sonar.jacoco.reportPaths>target/jacoco.exec</sonar.jacoco.reportPaths>
                 <sonar.java.binaries>target/classes</sonar.java.binaries>
                 <sonar.sources>src</sonar.sources>
