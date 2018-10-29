@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+    ingress.kubernetes.io/secure-backends: "false"
+  name: hello-world-service-ingress-with-wc-tls-lb
+  namespace: testhello
+spec:
+  rules:
+  - host: test-kb8-worker-mic01.bat.cloud
+    http:
+      paths:
+      - backend:
+          serviceName: hello-world-service
+          servicePort: 8070
+        path: /
+  tls:
+  - hosts:
+    - test-kb8-worker-mic01.bat.cloud
+//secretName: wildcard-secret
