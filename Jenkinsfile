@@ -1,6 +1,6 @@
 node{
    stage('SCM Checkout'){
-     git 'https://github.com/batibm/Bat.git'
+     git 'https://github.com/batibm/Bat.git jkjkkjijiji'
    }
     stage('compile'){
         // Get maven home path
