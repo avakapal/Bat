@@ -14,7 +14,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan({"com.ibm.tpd.primarydb.helloworld"})
 public class HelloWorldApplication {
 	
-	public  {
+	public static void main(String[] args) {
         
 		SpringApplication.run(HelloWorldApplication.class, args);
 	}
